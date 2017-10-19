@@ -61,12 +61,13 @@ public class QuickSortMiddleElementAsPivot {
     
     public  static void main(String[] args)
     {
-        int arr[] = {10, 7, 8, 9, 1, 5,1};
+//        int arr[] = {10, 7, 8, 9, 1, 5,1};
+    	int[] arr = { 10, 10, 7, 8, 9, 1, 5, 18, 1 };
 //        int arr[] = {6, 3, 1, 2, 5};
         int n = arr.length;
  
-        QuickSortLastElementAsPivot ob = new QuickSortLastElementAsPivot();
-        ob.sort(arr, 0, n-1);
+        QuickSortMiddleElementAsPivot ob = new QuickSortMiddleElementAsPivot();
+        ob.sort(arr);
  
         System.out.println("sorted array");
         printArray(arr);

@@ -55,14 +55,16 @@ public class QuickSortLastElementAsPivot {
 	    // Driver program
 	    public static void main(String args[])
 	    {
-	        int[] arr = {10, 7, 8, 9, 1, 5,1};
+	    	int[] arr = { 10, 10, 7, 8, 9, 1, 5, 18, 1 };
 //	        int arr[] = {6, 3, 1, 2, 5};
+//			int[] arr = { 1, 1, 2, 2, 5, 6, 7, 8 };
+//			int[] arr = { 1, 1, 1, 1, 1, 1 };	        
 	        int n = arr.length;
 	 
 	        QuickSortLastElementAsPivot ob = new QuickSortLastElementAsPivot();
 	        ob.sort(arr, 0, n-1);
 	 
-	        System.out.println("sorted array");
+	        System.out.println("sorted1 array");
 	        printArray(arr);
 	    }
 
