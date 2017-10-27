@@ -4,81 +4,48 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+//https://leetcode.com/contest/leetcode-weekly-contest-55/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
+//https://discuss.leetcode.com/topic/107991/java-simple-dp-solutions-o-n
 public class maxProfitProblem {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		 int[] prices = {1, 3, 2, 8, 4, 9};
 //		 int fee = 2; //8
-//		 int[] prices = {1,3,7,5,10,3};
-//		 int fee = 3;	//6
+		 int[] prices = {1,3,7,5,10,3};
+		 int fee = 3;	//6
 
-		 int[] prices = {4,5,2,4,3,3,1,2,5,4};
-		 int fee = 1;	
+//		 int[] prices = {4,5,2,4,3,3,1,2,5,4};
+//		 int fee = 1;	
 		 
 
 		 System.out.println(maxProfit(prices,fee));
 	}
 	public static int maxProfit(int[] prices, int fee) {
-	    int profit = 0;
-	    int lastSell = -1;
-	    
-	    HashMap<Integer,Integer> profitLog = new HashMap<>();
-	    profitLog.put(0, 0);
-	    
-	    for(int i=1; i<prices.length; i++){
-	    	int max = Integer.MIN_VALUE;
-	    	
-	    	for (int j = lastSell+1; j < i; j++) {
-	    		int diff = prices[i]-prices[j] - fee;
-	    		if(diff>0 && diff>max){
-
-	    			max = diff;
-	    		}
-			}
-
-	    	    Iterator it = profitLog.entrySet().iterator();
-	    	    int tempMax = Integer.MIN_VALUE;
-	    	    int tempMaxLocation = -1;
-	    	    while (it.hasNext()) {
-	    	        Map.Entry pair = (Map.Entry)it.next();
-		    		
-			    	for (int j = (int)pair.getValue(); j<i; j++) {
-			    		int diff = prices[i]-prices[j] - fee;
-			    		if(diff>0 && diff>tempMax){
-			    			tempMax = diff;
-			    			tempMaxLocation = j;
-			    		}
-			    	}
-			    	
-	    	        //it.remove(); // avoids a ConcurrentModificationException
-	    	    }
-			    	
-			    	if(max<tempMax && tempMax>0){
-			    		profit = profitLog.get(tempMaxLocation);
-			    		profit += tempMax;
-			    		lastSell =i;
-			    		
-			    	    Iterator iter = profitLog.entrySet().iterator();
-
-			    	    while (it.hasNext()) {
-			    	    	Map.Entry pair = (Map.Entry)it.next();
-			    	    	if((int)pair.getKey()>tempMaxLocation)
-			    	    		profitLog.remove((int)pair.getKey());
-			    	       
-			    	    }			    		
-			    		
-			    		profitLog.put(i, profit);
-			    		
-			    	}
-			    	else if(max>0){
-			    		profit += max;
-			    		lastSell =i;	
-			    		profitLog.put(i, profit);
-			    	}			    	
-
-	    	
-	    }
-	    return profit;
+        if(prices.length <= 1) return 0;
+        int[] buy = new int[prices.length];
+        int[] hold = new int[prices.length];
+        int[] skip = new int[prices.length];
+        int[] sell = new int[prices.length];
+        // the moment we buy a stock, our balance should decrease
+        buy[0] = 0 - prices[0]; 
+        // assume if we have stock in the first day, we are still in deficit
+        hold[0] = 0 - prices[0];
+        for(int i = 1; i < prices.length; i++){
+            // We can only buy on today if we sold stock
+            // or skipped with empty portfolio yesterday
+            buy[i] = Math.max(skip[i-1], sell[i-1]) - prices[i]; 
+            // Can only hold if we bought or already holding stock yesterday
+            hold[i] = Math.max(buy[i-1], hold[i-1]);
+            // Can skip only if we skipped, or sold stock yesterday
+            skip[i] = Math.max(skip[i-1], sell[i-1]);
+            // Can sell only if we bought, or held stock yesterday
+            sell[i] = Math.max(buy[i-1], hold[i-1]) + prices[i] - fee;
+        }
+        // Get the max of all the 4 actions on the last day.
+        int max = Math.max(buy[prices.length - 1], hold[prices.length - 1]);
+        max = Math.max(skip[prices.length - 1], max);
+        max = Math.max(sell[prices.length - 1], max);
+        return Math.max(max, 0);
 	}
 }
