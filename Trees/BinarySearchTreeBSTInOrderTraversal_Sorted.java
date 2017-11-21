@@ -1,9 +1,10 @@
 package Trees;
+// In order traversal for BST(not BT) is same as sorted list
 
-public class BinarySearchTreeBSTInOrderTraversal {
+public class BinarySearchTreeBSTInOrderTraversal_Sorted {
 	public static Node root;
 
-	public BinarySearchTreeBSTInOrderTraversal() {
+	public BinarySearchTreeBSTInOrderTraversal_Sorted() {
 		this.root = null;
 	}
 
@@ -139,7 +140,7 @@ public class BinarySearchTreeBSTInOrderTraversal {
 	}
 
 	public static void main(String arg[]) {
-		BinarySearchTreeBSTInOrderTraversal b = new BinarySearchTreeBSTInOrderTraversal();
+		BinarySearchTreeBSTInOrderTraversal_Sorted b = new BinarySearchTreeBSTInOrderTraversal_Sorted();
 		b.insert(3);
 		b.insert(8);
 		b.insert(1);

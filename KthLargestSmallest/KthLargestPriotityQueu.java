@@ -20,7 +20,7 @@ public class KthLargestPriotityQueu {
 	
 	public static void main(String[] args){
 		int k=2;
-		int[] arr = { 10, 10, 7, 8, 9, 1, 5, 1 };
+		int[] arr = { 6,10, 11, 7, 8, 9, 1, 5, 1 };
 		int result = findKthLargest(arr,k);
 		
 		System.out.println(result);

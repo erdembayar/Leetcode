@@ -3,7 +3,7 @@ package Trees;
 //https://leetcode.com/contest/leetcode-weekly-contest-53/problems/max-area-of-island/
 //https://discuss.leetcode.com/topic/106385/very-simple-dfs-java-solution/2
 	
-public class MaxAreaOfIsland {
+public class MatrixDFSMaxAreaOfIsland {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
